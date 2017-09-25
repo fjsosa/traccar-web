@@ -15,20 +15,30 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.define('Traccar.model.KnownCommand', {
-    extend: 'Ext.data.Model',
-    idProperty: 'type',
 
-    fields: [{
-        name: 'type',
-        type: 'string'
-    }, {
-        name: 'name',
-        convert: function (v, rec) {
-            return Traccar.AttributeFormatter.getFormatter('commandType')(rec.get('type'));
-        },
-        depends: ['type']
-    }, {
-        name: 'parameters'
-    }]
+Ext.define('Traccar.view.permissions.Drivers', {
+    extend: 'Traccar.view.permissions.Base',
+    xtype: 'linkDriversView',
+
+    requires: [
+        'Ext.grid.filters.Filters'
+    ],
+
+    plugins: 'gridfilters',
+
+    columns: {
+        items: [{
+            text: Strings.sharedName,
+            dataIndex: 'name',
+            flex: 1,
+            minWidth: Traccar.Style.columnWidthNormal,
+            filter: 'string'
+        }, {
+            text: Strings.deviceIdentifier,
+            dataIndex: 'uniqueId',
+            flex: 1,
+            minWidth: Traccar.Style.columnWidthNormal,
+            filter: 'string'
+        }]
+    }
 });

@@ -41,7 +41,8 @@ Ext.define('Traccar.Application', {
         'Calendar',
         'KnownAttribute',
         'Driver',
-        'KnownCommand'
+        'KnownCommand',
+        'KnownNotification'
     ],
 
     stores: [
@@ -96,7 +97,12 @@ Ext.define('Traccar.Application', {
         'Drivers',
         'AllDrivers',
         'KnownCommands',
-        'VolumeUnits'
+        'VolumeUnits',
+        'AllCommandTypes',
+        'Commands',
+        'AllCommands',
+        'DeviceCommands',
+        'AllNotificationTypes'
     ],
 
     controllers: [

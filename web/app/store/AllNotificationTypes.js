@@ -15,20 +15,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.define('Traccar.model.KnownCommand', {
-    extend: 'Ext.data.Model',
-    idProperty: 'type',
 
-    fields: [{
-        name: 'type',
-        type: 'string'
-    }, {
-        name: 'name',
-        convert: function (v, rec) {
-            return Traccar.AttributeFormatter.getFormatter('commandType')(rec.get('type'));
-        },
-        depends: ['type']
-    }, {
-        name: 'parameters'
-    }]
+Ext.define('Traccar.store.AllNotificationTypes', {
+    extend: 'Ext.data.Store',
+    model: 'Traccar.model.KnownNotification',
+
+    proxy: {
+        type: 'rest',
+        url: 'api/notifications/types',
+        listeners: {
+            'exception': function (proxy, response) {
+                Traccar.app.showError(response);
+            }
+        }
+    }
 });

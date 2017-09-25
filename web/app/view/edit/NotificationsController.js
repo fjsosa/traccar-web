@@ -16,17 +16,16 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-Ext.define('Traccar.view.permissions.UserUsers', {
-    extend: 'Traccar.view.permissions.Base',
-    xtype: 'userUsersView',
+Ext.define('Traccar.view.edit.NotificationsController', {
+    extend: 'Traccar.view.edit.ToolbarController',
+    alias: 'controller.notifications',
 
-    columns: {
-        items: [{
-            text: Strings.sharedName,
-            dataIndex: 'name',
-            flex: 1,
-            minWidth: Traccar.Style.columnWidthNormal,
-            filter: 'string'
-        }]
-    }
+    requires: [
+        'Traccar.view.dialog.Notification',
+        'Traccar.model.Notification'
+    ],
+
+    objectModel: 'Traccar.model.Notification',
+    objectDialog: 'Traccar.view.dialog.Notification',
+    removeTitle: Strings.sharedNotification
 });

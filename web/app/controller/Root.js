@@ -111,7 +111,21 @@ Ext.define('Traccar.controller.Root', {
         Ext.getStore('Geofences').load();
         Ext.getStore('Calendars').load();
         Ext.getStore('ComputedAttributes').load();
-        this.initReportEventTypesStore();
+        Ext.getStore('AllCommandTypes').load();
+        Ext.getStore('Commands').load();
+        Ext.getStore('AllNotificationTypes').load({
+            callback: function (records, operation, success) {
+                var store = Ext.getStore('ReportEventTypes');
+                if (success) {
+                    store.add({
+                        type: Traccar.store.ReportEventTypes.allEvents,
+                        name: Strings.eventAll
+                    });
+                    store.loadData(records, true);
+                }
+            }
+        });
+        Ext.getStore('Notifications').load();
 
         Ext.getStore('ServerAttributes').loadData(Ext.getStore('CommonDeviceAttributes').getData().items, true);
         Ext.getStore('ServerAttributes').loadData(Ext.getStore('CommonUserAttributes').getData().items, true);
@@ -283,28 +297,5 @@ Ext.define('Traccar.controller.Root', {
         if (lat === 0 && lon === 0 && zoom === 0) {
             this.fireEvent('zoomtoalldevices');
         }
-    },
-
-    initReportEventTypesStore: function () {
-        var store = Ext.getStore('ReportEventTypes');
-        store.add({
-            type: Traccar.store.ReportEventTypes.allEvents,
-            name: Strings.eventAll
-        });
-        Ext.create('Traccar.store.AllNotifications').load({
-            scope: this,
-            callback: function (records, operation, success) {
-                var i, value;
-                if (success) {
-                    for (i = 0; i < records.length; i++) {
-                        value = records[i].get('type');
-                        store.add({
-                            type: value,
-                            name: Traccar.app.getEventString(value)
-                        });
-                    }
-                }
-            }
-        });
     }
 });

@@ -27,11 +27,12 @@ Ext.define('Traccar.view.SettingsMenuController', {
         'Traccar.view.edit.Groups',
         'Traccar.view.edit.Geofences',
         'Traccar.view.edit.Drivers',
-        'Traccar.view.Notifications',
+        'Traccar.view.edit.Notifications',
         'Traccar.view.edit.ComputedAttributes',
         'Traccar.view.Statistics',
         'Traccar.view.dialog.DeviceDistance',
         'Traccar.view.edit.Calendars',
+        'Traccar.view.edit.SavedCommands',
         'Traccar.view.BaseWindow'
     ],
 
@@ -44,7 +45,6 @@ Ext.define('Traccar.view.SettingsMenuController', {
         if (admin) {
             this.lookupReference('settingsServerButton').setHidden(false);
             this.lookupReference('settingsStatisticsButton').setHidden(false);
-            this.lookupReference('settingsDeviceDistanceButton').setHidden(Traccar.app.getVehicleFeaturesDisabled());
         }
         if (admin || manager) {
             this.lookupReference('settingsUsersButton').setHidden(false);
@@ -58,6 +58,7 @@ Ext.define('Traccar.view.SettingsMenuController', {
                 Traccar.app.getBooleanAttributePreference('ui.disableCalendars'));
             this.lookupReference('settingsDriversButton').setHidden(
                 Traccar.app.getVehicleFeaturesDisabled() || Traccar.app.getBooleanAttributePreference('ui.disableDrivers'));
+            this.lookupReference('settingsCommandsButton').setHidden(Traccar.app.getPreference('limitCommands', false));
         }
         if (admin || !deviceReadonly && !readonly) {
             this.lookupReference('settingsComputedAttributesButton').setHidden(
@@ -108,12 +109,10 @@ Ext.define('Traccar.view.SettingsMenuController', {
     },
 
     onNotificationsClick: function () {
-        var user = Traccar.app.getUser();
         Ext.create('Traccar.view.BaseWindow', {
             title: Strings.sharedNotifications,
             items: {
-                xtype: 'notificationsView',
-                user: user
+                xtype: 'notificationsView'
             }
         }).show();
     },
@@ -136,11 +135,6 @@ Ext.define('Traccar.view.SettingsMenuController', {
         }).show();
     },
 
-    onDeviceDistanceClick: function () {
-        var dialog = Ext.create('Traccar.view.dialog.DeviceDistance');
-        dialog.show();
-    },
-
     onCalendarsClick: function () {
         Ext.create('Traccar.view.BaseWindow', {
             title: Strings.sharedCalendars,
@@ -155,6 +149,15 @@ Ext.define('Traccar.view.SettingsMenuController', {
             title: Strings.sharedDrivers,
             items: {
                 xtype: 'driversView'
+            }
+        }).show();
+    },
+
+    onCommandsClick: function () {
+        Ext.create('Traccar.view.BaseWindow', {
+            title: Strings.sharedSavedCommands,
+            items: {
+                xtype: 'savedCommandsView'
             }
         }).show();
     },
