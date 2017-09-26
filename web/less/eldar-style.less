@@ -3,6 +3,7 @@
 @mainColor: brown;
 @lightColorAccentPlus:#eb7b7b;
 @lightColorAccent:#fae7ce;
+
 @lightColor: antiquewhite;
 @ultraLightColor: #ee9494;
 @superUltraLightColor: rgba(238, 148, 148, 0.28);
@@ -13,6 +14,8 @@
 @lightRoseColor: #ffdcdc;
 @blackColor: #000000;
 @white: #ffffff;
+
+
 .x-body{
     background:@mainColor;
 }
@@ -103,6 +106,13 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill
  {
      border-color: @ultraLightColor;
      background-color: @lightColor;
+ }
+ 
+ .x-btn-over.x-btn-default-toolbar-small
+ {
+     color: @ultraLightColor;
+     border-color: @ultraLightColor;
+     background-color: @mainColor;
  }
  
  .x-btn.x-btn-disabled.x-btn-default-toolbar-small
@@ -197,7 +207,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill
  
  .x-btn-icon-el-default-toolbar-small
  {
-     color: @mainColor;
+     color: @lightColorAccentPlus;
  }
  
  .x-tool-tool-el
